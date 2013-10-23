@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @product.name %>
+</p>
+<h3>Upload a Photo</h3> 
+<%= form_for @product, :html => {:multipart => true} do |f| %> 
+  <p>
+    <%= f.file_field :photo %>
+  </p>
+  <p>
+    <%= f.submit "Upload" %>
+  </p>
+<% end %>
+<%= image_tag @product.avatar.url(:original) %>
+<%= image_tag @product.avatar.url(:medium) %>
+<%= image_tag @product.avatar.url(:thumb) %>
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>

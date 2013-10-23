@@ -1,0 +1,7 @@
+ <% if false %>
+  <% if request.post? %>
+    <p><%= valid_captcha?(params[:captcha]) ? 'valid' : 'invalid' %> captcha</p>
+  <% end %>
+  <% end %>
+  <p><%= captcha_tag %></p>
+  

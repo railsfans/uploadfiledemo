@@ -1,0 +1,3 @@
+$("#captch").html('')
+var content=$("<%= escape_javascript render(:partial => 'captch').html_safe %>")  
+$("#captch").html(content)

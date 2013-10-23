@@ -1,0 +1,31 @@
+
+<div class="ajax-progress"></div>
+<%= form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :avatar %><br />
+    <%= f.file_field :avatar %>
+  </div>
+   <div id="captch">
+   <%= render :partial => "captch" %>
+   </div>
+  <p><%= text_field_tag :captcha %></p><%= link_to "refresh", product_refresh_path(:format=>:js), :remote=>true %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

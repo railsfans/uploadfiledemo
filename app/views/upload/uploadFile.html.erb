@@ -1,0 +1,49 @@
+<h1>File Upload</h1>
+<%= form_tag({:action => 'uploadFile'}, :multipart => true) do %>
+<p><label for="upload_file">Select File</label>
+<%= file_field 'upload', 'datafile' %></p>
+<%= submit_tag "Upload" %>
+<% end %>
+<p>Upload your Video </p>
+<div id="video_attachment"></div>
+<style>
+p {
+   background-image: url('<%= asset_path("rails.png") %>');
+}
+</style>
+
+<script type="text/javascript">
+  $(function() {
+    <% session_key = Rails.application.config.session_options[:key] %>
+    var uploadify_script_data = {};
+    var csrf_token = $('meta[name=csrf-token]').attr('content');
+    var csrf_param = $('meta[name=csrf-param]').attr('content');
+
+    uploadify_script_data[csrf_param] = encodeURI(encodeURIComponent(csrf_token));
+    uploadify_script_data['<%= session_key %>'] = '<%= cookies[session_key] %>';
+
+    $('#video_attachment').uploadify({
+	'auto'				: false,
+	'multi'				: false,
+	'uploadLimit'		: 1,
+	'formData'			: {'uid':'18'},
+	'buttonText'		: '请选择图片',
+	'height'			: 20,
+	'width'				: 120,
+	'removeCompleted'	: false,
+	'swf'				: '<%= asset_path("uploadify.swf") %>',
+	'uploader'			: '<%= upload_uploadFile_path %>',
+	'fileTypeExts'		: '*.gif; *.jpg; *.jpeg; *.png;',
+	'fileSizeLimit'		: '1024KB',
+      'onUploadSuccess' : function(event, data){
+        alert("Success!  Please be patient while the video processes.");
+      },
+      'onClearQueue' : function(queueItemCount) {
+            alert( $('#img1') );
+        },
+      'onCancel' : function(file) {
+            alert('The file ' + file.name + ' was cancelled.');
+        }
+    });
+  });
+</script>
